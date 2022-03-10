@@ -49,6 +49,18 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('projects', 'ProjectController');
 
+
+    Route::resource('departamentos', 'DepartamentoController');
+
+    Route::resource('municipios', 'MunicipioController');
+
+    Route::resource('clientes', 'ClienteController');
+
+    Route::resource('productoTipos', 'ProductoTipoController');
+
+    Route::resource('productos', 'ProductoController');
+
+    Route::resource('clienteProcutos', 'ClienteProcutoController');
 });
 
 
