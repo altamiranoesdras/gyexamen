@@ -3,9 +3,11 @@
 namespace App\DataTables;
 
 use App\Models\Producto;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
 
 class ProductoDataTable extends DataTable
 {
@@ -17,27 +19,14 @@ class ProductoDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        return datatables()
+            ->eloquent($query)
+            ->addColumn('action', function(Producto $producto){
 
-       return $dataTable->addColumn('action', function(Producto $producto){
+                $id = $producto->id;
 
-                 $id = $producto->id;
-
-                 return view('productos.datatables_actions',compact('producto','id'))->render();
-             })
-             ->editColumn('id',function (Producto $producto){
-
-                 return $producto->id;
-
-                 //se debe crear la vista modal_detalles
-                 //return view('productos.modal_detalles',compact('producto'))->render();
-
-             })
-           ->setRowId(function (Producto $producto) {
-               return $producto->id;
-           })
-             ->rawColumns(['action','id']);
-
+                return view('productos.datatables_actions',compact('producto','id'))->render();
+            });
     }
 
     /**
@@ -48,7 +37,7 @@ class ProductoDataTable extends DataTable
      */
     public function query(Producto $model)
     {
-        return $model->newQuery()->with('tipo');
+        return $model->newQuery();
     }
 
     /**
@@ -59,15 +48,10 @@ class ProductoDataTable extends DataTable
     public function html()
     {
         return $this->builder()
+            ->setTableId('pruebadatatable-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false])
-            ->ajax([
-                'data' => "function(data) { formatDataDataTables($('#formFiltersDatatables').serializeArray(), data);   }"
-            ])
-            ->parameters([
-                'dom'     => '
-                                    <"row mb-2"
+            ->dom('<"row mb-2"
                                         <"col-sm-12 col-md-6" B>
                                         <"col-sm-12 col-md-6" f>
                                     >
@@ -76,20 +60,13 @@ class ProductoDataTable extends DataTable
                                         <"col-sm-6 order-2 order-sm-1" ip>
                                         <"col-sm-6 order-1 order-sm-2 text-right" l>
 
-                                    >',
-                'order'   => [[0, 'desc']],
-                'language' => ['url' => asset('js/SpanishDataTables.json')],
-                //'scrollX' => false,
-                'responsive' => true,
-//                'stateSave' => true,
-                'buttons' => [
-                    //['extend' => 'create', 'text' => '<i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Crear</span>'],
-                    ['extend' => 'print', 'text' => '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'],
-                    //['extend' => 'reload', 'text' => '<i class="fa fa-sync-alt"></i> <span class="d-none d-sm-inline">Recargar</span>'],
-                    ['extend' => 'reset', 'text' => '<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'],
-                    ['extend' => 'export', 'text' => '<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>'],
-                ],
-            ]);
+                                    >')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('print')->text('<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'),
+                Button::make('reset')->text('<i class="fa fa-undo"></i> <span class="d-none d-sm-inline">Reiniciar</span>'),
+                Button::make('export')->text('<i class="fa fa-download"></i> <span class="d-none d-sm-inline">Exportar</span>')
+            );
     }
 
     /**
@@ -101,8 +78,13 @@ class ProductoDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
-            Column::make('nombre')->data('nombre')->name('nombre')
+            Column::make('nombre'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->title('Acciones')
+                ->width(120)
+                ->addClass('text-center'),
         ];
     }
 
@@ -113,6 +95,6 @@ class ProductoDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'productosdatatable_' . time();
+        return 'Productos_' . date('YmdHis');
     }
 }
