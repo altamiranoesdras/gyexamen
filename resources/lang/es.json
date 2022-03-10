@@ -61,6 +61,7 @@
     "You cannot delete user with role superior to yours": "No puede eliminar un usuario con un rol superior al suyo",
     "You cannot edit user menu with role superior to yours": "No puede editar el menú del usuario con un rol superior al suyo",
 
-    "New" :"Nuevo"
+    "New" :"Nuevo",
+    "New :item" : "Nuevo :item"
 
 }

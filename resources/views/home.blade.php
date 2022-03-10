@@ -42,7 +42,7 @@
                         <button class="btn btn-outline-success float-right mr-3" @click="newShortcut()">
                             <i class="fa fa-plus"></i>
                             <span class="d-none d-sm-inline">
-                            {{__('New Shortcut')}}
+                            {{__('Nuevo Shortcut')}}
                         </span>
                         </button>
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('New Producto Tipo'))
+@section('title_page',__('Nuevo Producto Tipo'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{__('New Producto Tipo')}}</h1>
+                    <h1>{{__('Nuevo Producto Tipo')}}</h1>
                 </div>
                 <div class="col ">
                     <a class="btn btn-outline-info float-right"
