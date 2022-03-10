@@ -71,6 +71,7 @@ class RoleDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'id',
             'name',
             'guard_name'
         ];

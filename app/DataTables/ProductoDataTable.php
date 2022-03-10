@@ -37,7 +37,7 @@ class ProductoDataTable extends DataTable
      */
     public function query(Producto $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->select('productos.*')->with(['tipo']);
     }
 
     /**
@@ -78,6 +78,7 @@ class ProductoDataTable extends DataTable
     {
         return [
             Column::make('id'),
+            Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
             Column::make('nombre'),
             Column::computed('action')
                 ->exportable(false)
