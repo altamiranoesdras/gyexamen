@@ -28,15 +28,6 @@
     {!! Form::date('fecha_nacimiento', null, ['class' => 'form-control','id'=>'fecha_nacimiento']) !!}
 </div>
 
-@section('scripts')
-    <script type="text/javascript">
-        $('#fecha_nacimiento').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
-@endsection
-
 <!-- Telefono Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('telefono', 'Telefono:') !!}

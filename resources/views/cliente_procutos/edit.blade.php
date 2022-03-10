@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title_page',__('Edit Cliente Procuto'))
+@section('title_page',__('Editar Venta'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col">
-                    <h1>{{__('Edit Cliente Procuto')}}</h1>
+                    <h1>{{__('Editar Venta')}}</h1>
                 </div>
                 <div class="col">
                     <a class="btn btn-outline-info float-right"

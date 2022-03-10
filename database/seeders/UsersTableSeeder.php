@@ -27,7 +27,13 @@ class UsersTableSeeder extends Seeder
         ])->each(function (User $user){
             $user->syncRoles([Role::DEVELOPER]);
             $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
+                $user->shortcuts()->sync([
+                1,
+                12,
+                13,
+                14,
+                15
+            ]);
         });
 
         User::factory(1)->create([
@@ -37,38 +43,65 @@ class UsersTableSeeder extends Seeder
         ])->each(function (User $user){
             $user->syncRoles(Role::SUPERADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
+                $user->shortcuts()->sync([
+                1,
+                12,
+                13,
+                14,
+                15
+            ]);
 
         });
 
         User::factory(1)->create([
-            "username" => "Admin",
-            "name" => "Administrador",
+            "username" => "gycurso01",
+            "name" => "Usuario Admin",
             "password" => bcrypt("123")
         ])->each(function (User $user){
             $user->syncRoles(Role::ADMIN);
             $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
+            $user->shortcuts()->sync([
+                1,
+                12,
+                13,
+                14,
+                15
+            ]);
+
+        });
+
+
+        User::factory(1)->create([
+            "username" => "gycurso02",
+            "name" => "Usuario Supervisor",
+            "password" => bcrypt("123")
+        ])->each(function (User $user){
+            $user->syncRoles(Role::SUPERVISOR);
+            $user->options()->sync(Option::pluck('id')->toArray());
+            $user->shortcuts()->sync([
+                1,
+                12,
+                13,
+                14,
+                15
+            ]);
 
         });
 
         User::factory(1)->create([
-            "username" => "Tester",
-            "name" => "Tester",
+            "username" => "gycurso03",
+            "name" => "Usuario Operador",
             "password" => bcrypt("123")
         ])->each(function (User $user){
-            $user->syncRoles(Role::TESTER);
+            $user->syncRoles(Role::OPERADOR);
             $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
-
-        });
-
-        User::factory(6)->create([
-            "password" => bcrypt("123")
-        ])->each(function (User $user){
-            $user->syncRoles(Role::USER);
-            $user->options()->sync(Option::pluck('id')->toArray());
-            $user->shortcuts()->sync([3,4,5,6]);
+            $user->shortcuts()->sync([
+                1,
+                12,
+                13,
+                14,
+                15
+            ]);
 
         });
     }

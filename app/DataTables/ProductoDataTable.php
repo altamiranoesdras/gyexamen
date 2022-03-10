@@ -33,6 +33,9 @@ class ProductoDataTable extends DataTable
                  //return view('productos.modal_detalles',compact('producto'))->render();
 
              })
+           ->setRowId(function (Producto $producto) {
+               return $producto->id;
+           })
              ->rawColumns(['action','id']);
 
     }
@@ -45,7 +48,7 @@ class ProductoDataTable extends DataTable
      */
     public function query(Producto $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('tipo');
     }
 
     /**
@@ -78,7 +81,7 @@ class ProductoDataTable extends DataTable
                 'language' => ['url' => asset('js/SpanishDataTables.json')],
                 //'scrollX' => false,
                 'responsive' => true,
-                'stateSave' => true,
+//                'stateSave' => true,
                 'buttons' => [
                     //['extend' => 'create', 'text' => '<i class="fa fa-plus"></i> <span class="d-none d-sm-inline">Crear</span>'],
                     ['extend' => 'print', 'text' => '<i class="fa fa-print"></i> <span class="d-none d-sm-inline">Imprimir</span>'],
@@ -97,8 +100,9 @@ class ProductoDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('tipo_id'),
-            Column::make('nombre')
+            Column::make('id'),
+            Column::make('tipo')->data('tipo.nombre')->name('tipo.nombre'),
+            Column::make('nombre')->data('nombre')->name('nombre')
         ];
     }
 
